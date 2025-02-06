@@ -1,6 +1,6 @@
 import allure
 
-from page_objects.main_page import MainPage
+from pages.main_page import MainPage
 
 
 class TestLogoRedirect:

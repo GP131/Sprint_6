@@ -1,7 +1,7 @@
 import pytest
 import allure
 
-from page_objects.main_page import MainPage
+from pages.main_page import MainPage
 from data import TestData
 
 
