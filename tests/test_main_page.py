@@ -2,7 +2,7 @@ import pytest
 import allure
 
 from pages.main_page import MainPage
-from data import TestData
+from helpers.data import TestData
 
 
 class TestMainPageFaq:

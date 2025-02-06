@@ -2,7 +2,7 @@ import allure
 
 from locators.order_page_locators import OrderPageLocators
 from pages.base_page import BasePage
-from data import TestData
+from helpers.data import TestData
 
 
 class OrderPage(BasePage):
