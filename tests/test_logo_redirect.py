@@ -11,7 +11,7 @@ class TestLogoRedirect:
         main_page.click_on_header_logo_yandex()
         main_page.switch_to_next_tab()
         main_page.wait_for_url_change()
-        current_url = main_page.current_url()
+        current_url = main_page.get_current_url()
         assert 'dzen.ru' in current_url
 
     @allure.title('Проверка перехода на главную страницу при клике на лого "Самокат" в шапке')

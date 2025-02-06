@@ -7,27 +7,31 @@ from selenium.webdriver.support import expected_conditions as EC
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 5)
+
+    def find(self, locator):
+        return self.driver.find_element(*locator)
 
     @allure.step('Проскроллить до элемента')
     def scroll_to_element(self, locator):
-        element = self.driver.find_element(*locator)
+        element = self.find(locator)
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
 
     @allure.step('Подождать прогрузки элемента')
     def wait_visibility_of_element(self, locator):
-        return WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(locator))
+        return self.wait.until(EC.visibility_of_element_located(locator))
 
     @allure.step('Кликнуть на элемент')
     def click_on_element(self, locator):
-        self.driver.find_element(*locator).click()
+        self.find(locator).click()
 
     @allure.step('Ввести значение в поле ввода')
     def send_keys_to_field(self, locator, keys):
-        self.driver.find_element(*locator).send_keys(keys)
+        self.find(locator).send_keys(keys)
 
     @allure.step('Получить текст на элементе')
     def get_text_on_element(self, locator):
-        return self.driver.find_element(*locator).text
+        return self.find(locator).text
 
     @allure.step('Перейти на другую вкладку')
     def switch_to_next_tab(self):
@@ -35,4 +39,9 @@ class BasePage:
 
     @allure.step('Проверить отображение элемента')
     def check_displaying_of_element(self, locator):
-        return self.driver.find_element(*locator).is_displayed()
+        element = self.wait.until(EC.presence_of_element_located(locator))
+        return element.is_displayed()
+
+    @allure.step('Проверить текущий URL')
+    def get_current_url(self):
+        return self.driver.current_url

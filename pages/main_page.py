@@ -1,8 +1,6 @@
 import allure
 
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from locators.main_page_locators import MainPageLocators
 from pages.base_page import BasePage
 
@@ -38,12 +36,12 @@ class MainPage(BasePage):
         self.wait_visibility_of_element(MainPageLocators.main_header)
 
     @allure.step('Получить текущий URL')
-    def current_url(self):
-        return self.driver.current_url
+    def get_page_url(self):
+        return self.get_current_url()
 
     @allure.step("Ожидание загрузки URL")
-    def wait_for_url_change(self, timeout=5):
-        return WebDriverWait(self.driver, timeout).until_not(EC.url_to_be("about:blank"))
+    def wait_for_url_change(self):
+        self.wait.until_not(EC.url_to_be("about:blank"))
 
     @allure.step('Проверить отображение заголовка главной страницы')
     def check_displaying_of_main_header(self):
@@ -55,16 +53,24 @@ class MainPage(BasePage):
 
     @allure.step('Подождать прогрузки номера вопроса в "Вопросы о важнoм"')
     def wait_visibility_of_faq_questions(self, data):
-        self.wait_visibility_of_element(MainPageLocators.faq_questions[data])
+        locator = MainPageLocators.faq_questions.get(data)
+        if locator:
+            self.wait_visibility_of_element(locator)
 
     @allure.step('Кликнуть на номер вопроса в "Вопросы о важнoм"')
     def click_on_faq_question(self, data):
-        self.click_on_element(MainPageLocators.faq_questions[data])
+        locator = MainPageLocators.faq_questions.get(data)
+        if locator:
+            self.click_on_element(locator)
 
     @allure.step('Подождать прогрузки номера ответа в "Вопросы о важнoм"')
     def wait_visibility_of_faq_answer(self, data):
-        self.wait_visibility_of_element(MainPageLocators.faq_answers[data])
+        locator = MainPageLocators.faq_answers.get(data)
+        if locator:
+            self.wait_visibility_of_element(locator)
 
     @allure.step('Получить текст нужного номера ответа в "Вопросы о важнoм"')
     def get_displayed_text_from_faq_answer(self, data):
-        return self.get_text_on_element(MainPageLocators.faq_answers[data])
+        locator = MainPageLocators.faq_answers.get(data)
+        if locator:
+            return self.get_text_on_element(locator)

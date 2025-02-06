@@ -14,4 +14,5 @@ class TestMainPageFaq:
         main_page.wait_visibility_of_faq_questions(question_number)
         main_page.click_on_faq_question(question_number)
         main_page.wait_visibility_of_faq_answer(question_number)
-        assert main_page.get_displayed_text_from_faq_answer(question_number) == expected_answer
+        displayed_text = main_page.get_displayed_text_from_faq_answer(question_number)
+        assert displayed_text == expected_answer

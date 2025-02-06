@@ -13,7 +13,7 @@ class OrderPage(BasePage):
 
     @allure.step('Ввести дату заказа в "Когда привезти самокат"')
     def send_keys_date_by_keyboard_input(self):
-        self.send_keys_to_field(OrderPageLocators.field_date).send_keys(TestData.test_data_user1[5])
+        self.send_keys_to_field(OrderPageLocators.field_date, TestData.test_data_user1[5])
 
     @allure.step('Кликнуть по выбранной дате в выпадающем календаре начала аренды')
     def click_date_in_calendar(self):
